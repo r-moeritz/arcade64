@@ -51,7 +51,7 @@
  323 rem
  324 rem set rebound direction
  325 if(x(i)>0)and(x(i)<23) then on xd(i)+2 gosub 990,980,970:xd(i)=r
- 330 retrun
+ 330 return
  938 rem
  939 rem set random character values
  940 r=int(rnd(9)*3):return
