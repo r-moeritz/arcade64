@@ -3,13 +3,13 @@ SRCDIR := src
 OBJDIR := build
 SRC := $(wildcard $(SRCDIR)/*.bas)
 PRG := $(SRC:src/%.bas=$(OBJDIR)/%.prg)
-D64 := $(OBJDIR)/arcade.d64
+D81 := $(OBJDIR)/arcade.d81
 
 # Commands
 MKPRG = petcat -w2 -o $@ --
 RM := rm -rf
 MKDIR := mkdir -p
-MKD64 := c1541 -format arcade,ar d64
+MKD81 := c1541 -format arcade,ar d81
 
 # Rules
 $(OBJDIR)/%.prg: $(SRCDIR)/%.bas
@@ -18,14 +18,14 @@ $(OBJDIR)/%.prg: $(SRCDIR)/%.bas
 # Targets
 release: MKPRG = mospeed -target=$@
 
-.PHONY: all release d64 prg clean
+.PHONY: all release d81 prg clean
 
-all: d64
+all: d81
 release: $(PRG)
 prg: $(PRG)
 
-d64: $(PRG)
-	$(MKD64) $(D64) -attach $(D64) $(foreach p,$(PRG),-write $(p) $(subst .prg,,$(subst build/,,$(p))))
+d81: $(PRG)
+	$(MKD81) $(D81) -attach $(D81) $(foreach p,$(PRG),-write $(p) $(subst .prg,,$(subst build/,,$(p))))
 
 $(SRC): | $(OBJDIR)
 

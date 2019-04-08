@@ -1,9 +1,9 @@
    5 gosub 300
   10 v=53248:s=200:print"{clr}{wht}":poke 53281,0:y=255
   20 print"{4 down}{wht}       *** sprites on parade ***"
-  30 print"{10 down}{rvon}6{rvof}{rvon}40 £{rvof}";
-  40 print"{rvon}++++++++++++++++++++++++++++++++++++++++{rvof}";
-  50 print"{rvon}40 +{rvof}"
+  30 rem print"{10 down}{rvon}6{rvof}{rvon}40 £{rvof}";
+  40 rem print"++++++++++++++++++++++++++++++++++++++++";
+  50 rem print"{rvon}40 +{rvof}"
   60 poke v,160:poke v+1,y:poke v+21,1
   70 poke v+29,1:poke v+23,1
   80 poke v+39,10:poke v+37,3:poke v+38,7
