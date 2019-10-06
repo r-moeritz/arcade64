@@ -1,3 +1,4 @@
+   5 s=54272:gosub 1700
   10 dim cc(1),ch(1),cb(1)
   17 rem
   18 rem set memory variables
@@ -100,19 +101,19 @@
  697 rem
  698 rem small star
  699 rem
- 700 if w=28 then p=p-100:nc=nc+1:return
+ 700 if w=28 then p=p-100:nc=nc+1:gosub 1500:return
  707 rem
  708 rem space station
  709 rem
- 710 if w=27 then nc=cs:w=30:return
+ 710 if w=27 then nc=cs:w=30:gosub 1550:return
  717 rem
  718 rem used space station
  719 rem
- 720 if w=30 then return
+ 720 if w=30 then gosub 1600:return
  727 rem
  728 rem nova!
  729 rem
- 730 p=p+(8*nh)*int(qq-q):w=28:return
+ 730 p=p+(8*nh)*int(qq-q):w=28:gosub 1650:return
  797 rem
  798 rem reset timer
  799 rem
@@ -149,3 +150,61 @@
 1370 data 0,66,60,60,60,60,66,0
 1380 data 0,32,112,241,143,14,4,0
 1390 data 203,145,153,255,153,24,24,36
+1497 rem
+1498 rem small star collision sound effect
+1499 rem
+1500 for i=0 to 24:poke s+i,0:next
+1510 poke s+24,15:poke s+12,160:poke s+13,252
+1520 poke s+8,80:poke s+7,40:poke s+11,129
+1530 for i=0 to 100:next
+1540 poke s+11,128:return
+1547 rem
+1548 rem large space station sound effect
+1549 rem
+1550 for i=0 to 24:poke s+i,0:next:sp=10
+1560 poke s,150:poke s+1,sp
+1570 poke s+5,0:poke s+6,240:poke s+24,15:poke s+4,17
+1580 for sp=10 to 250 step 2:poke s+1,sp:next
+1590 for t=0 to 100:next:return
+1597 rem
+1598 rem small space station sound effect
+1599 rem
+1600 for i=0 to 24:poke s+i,0:next
+1610 poke s,150:poke s+1,200:poke s+5,8:poke s+6,248
+1620 poke s+24,15:poke s+4,17
+1630 for t=0 to 100:next
+1640 poke s+4,16:for t=0 to 100:next:return
+1647 rem
+1648 rem nova star sound effect
+1649 rem
+1650 for i=0 to 24:poke s+i,0:next:sp=10
+1660 poke s,150:poke s+1,sp
+1670 poke s+5,0:poke s+6,240:poke s+24,15:poke s+4,17
+1680 for sp=10 to 250 step 4:poke s+1,sp:next
+1690 for t=0 to 100:next:return
+1697 rem
+1698 rem introduction
+1699 rem
+1700 print"{clr}":poke 53281,15
+1705 print "{2 down}{16 right}{blk}starmove"
+1710 print "{2 down}{2 right}{blu}maneuver your star ship across the"
+1720 print"{2 right}galaxy."
+1730 print"{2 down}{2 right}avoid the stars and refuel at novas."
+1740 print"{2 down}{2 right}land at the space station for power."
+1750 get a$:if a$="" then 1750
+1760 print"{clr}{3 down}{2 right}hit f5 key for 'up'"
+1770 print"{2 down}{2 right}hit f7 key for 'down'"
+1780 print"{2 down}{2 right}hit commodore key for 'left'"
+1790 print"{2 down}{2 right}hit shift key for 'right'"
+1800 print"{6 down}{2 right}hit any key to continue"
+1810 get a$:if a$="" then 1810
+1820 print"{clr}{2 down}{2 right}score points by refueling at novas."
+1830 print"{2 down}{2 right}points deducted for crashing into"
+1840 print"{2 right}stars and taking too much time."
+1850 print"{2 down}{2 right}you can crash into eight stars"
+1860 print"{2 right}before landing on the space station."
+1870 print"{2 down}{2 right}the game ends when your ship's power"
+1880 print"{2 right}is gone."
+1890 print"{6 down}{2 right}hit key to start."
+1900 get a$:if a$="" then goto 1900
+1910 return
