@@ -1,4 +1,4 @@
-5 rem multi-filter demo - Aggie
+5 rem multi-filter demo
 10 gosub 200
 18 poke 53281,0:s=54272:x=0:f=35:rm=140
 20 poke s,18:poke s+1,f:poke s+18,16
