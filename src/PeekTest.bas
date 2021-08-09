@@ -1,5 +1,0 @@
-10 FORA = 0TOPEEK(53281)
-20 ? A
-30 next A
-40 end
-50

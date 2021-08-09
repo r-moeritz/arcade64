@@ -1,7 +1,8 @@
-6 rem set (c)haracter value, and (l)ocation
-7 l=1024:c=42:cm=54272
+2 rem set (c)haracter value, and (l)ocation
+4 l=1024 + 840:c=42:cm=54272: ADDR=1024 :rem 128
+5 VM=0:CC=14:CH=VM+CC*1024:RM=53248-CH:GOSUB 60090:gosub 60410
 9 rem set screen background, sprite coordinates
-10 poke 53281,0:print"{clear}":v=53248:x=120:y=120:x2=150:y2=50
+10 poke 53281,0:v=53248:x=120:y=120:x2=150:y2=50
 14 rem read data for ml joystick subroutine
 15 for x=828 to 949:read a:poke x,a:next
 19 rem read data for sprite creation
@@ -25,9 +26,9 @@
 114 rem print value of v+31 (changes from 0 to 1 or 2 when sprite+char collide)
 115 print"{down}{down}sprite to character="peek(v+31)
 119 rem set character location, wraparound if necessary
-120 l=l+1:if l>2023 then l=1024
+120 l=l-1:if l=1024+800 then poke l+cm,5:poke l+1,42: l=1024+839
 129 rem display char at new location, with colour, and erase from old location
-130 poke l,c:poke l+cm,5:poke l-1,32
+130 poke l,c:poke l+cm,5:poke l+1,c
 150 goto 80
 990 rem data for js routine
 995 data 173,1,220,74,176,3,206,1,208,74,176,3,238,1,208,74,176,42,173
@@ -41,3 +42,22 @@
 60000 data 0,0,0,0,0,0,7,255,224,15,255,240,25,36,152,31,255,248,15,255
 60010 data 240,7,255,224,0,24,0,32,189,4,49,255,140,43,255,212,36,60,36,40,24
 60020 data 20,48,36,12,32,90,4,0,189,0,1,126,128,3,0,192,0,0,0,0,0,0,36,40,24
+60030Rem: draw grass
+60040 FOR X=800 TO 1000 :rem 117
+60050 POKE 55296 + x, 5
+60060 POKE ADDR+X,32 + 128:NEXT
+60070 RETURN
+60080 REM***Move chars
+60090 POKE 53272,(PEEK(53272)AND 240)ORCC:REM char mem pointer
+60100 POKE 56334,PEEK(56334)AND 254:POKE 1,PEEK(1)AND 251:REM Switch In ROM
+60200 FOR I=CH TO CH+511:POKE I,PEEK(I+RM):NEXT:REM move chars
+60300 POKE 1,PEEK(1) OR 4:POKE 56334,PEEK(56334)OR 1:REM Switch in I/O
+60400 RETURN
+60410 FOR I=CH+8*27 TO CH+8*31 STEP 8:FOR J=I TO I+7:READ N:POKE J,N:NEXT:NEXT
+60412 ?"done with data"
+60415 RETURN
+60420 DATA 12,12,9,118,8,24,36,72
+60430 DATA 16,16,56,124,254,146,56,40
+60440 DATA 16,124,248,248,124,147,127,62
+60450 DATA 170,0,242,146,159,255,126,109
+60460 DATA 0,0,28,254,28,126,129,126
